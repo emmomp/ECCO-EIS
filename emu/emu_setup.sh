@@ -92,44 +92,7 @@ echo "----------------------"
 #URL="https://ecco.jpl.nasa.gov/drive/files/Version4/Release4/other/flux-forced"
 URL="https://ecco.jpl.nasa.gov/drive"
 
-while true; do
-    # Prompt for username
-    read -p "Enter your Earthdata username: " Earthdata_username
-
-    # Prompt for password
-    read -p "Enter your WebDAV password (*NOT* Earthdata password): " WebDAV_password
-    echo
-
-    # Disable exit on error
-    set +e
-
-    # Check credentials using wget --spider
-    OUTPUT=$(wget --spider --user="$Earthdata_username" --password="$WebDAV_password" "$URL" 2>&1)
-
-    # Enable exit on error
-    set -e 
-
-    # Check the exit status of wget
-    if echo "$OUTPUT" | grep -Ei "Remote file exists and could contain further links" > /dev/null 2>&1; then
-#        echo "Earthdata/WebDAV Credentials confirmed"
-        break
-    else
-	if echo "$OUTPUT" | grep -Ei "Username/Password Authentication Failed|Authorization failed" > /dev/null; then
-            echo "Invalid username and/or password. Try again."
-            echo
-	else
-	    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
-            echo "ERROR: wget to $URL. Issue may be with server or client." 
-            echo "       wget returns the following." 
-	    echo 
-            echo "$OUTPUT"
-	    echo 
-	    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!"
-	    echo 
-            exit 1
-	fi
-    fi
-done
+echo "Skipping Earthdata username & pword, assuming you already have it"
 
 sleep 2
 
