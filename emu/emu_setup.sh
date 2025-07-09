@@ -534,7 +534,7 @@ if [[ "$emu_install" -eq 2 ]]; then
 	    rm -rf ECCO-EIS  
 	#    tar -xvf /net/b230-304-t3/ecco_nfs_1/shared/EMU/singularity8/emu.tar
 	    ) > "$log_file" 2>> "$log_file"    
-else	
+elif [[ "$emu_install" -eq 1 ]]; then 
 	# .......................................
 	# Using EMU already on host system
 	    echo 
@@ -542,7 +542,10 @@ else
 	    echo "Using EMU already in directory "
 	    echo ${emu_dir}
 	cd ${emu_dir}
- done
+else
+	echo "Must choose 1 or 2, aborting"
+	exit 1
+fi
 
 # Compile EMU
     cd emu
