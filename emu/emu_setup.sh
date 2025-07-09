@@ -102,6 +102,7 @@ sleep 2
 echo
 echo "----------------------"
 echo "Enter directory name (emu_dir) to download and set up EMU's Programs (~1 GB) "
+echo "or Enter directory name where EMU has already been cloned eg ECCO-EIS"
 echo "or press the ENTER key to use EMU's default (emu_dir under the present directory) ... ?"
 read ftext 
 
@@ -494,8 +495,8 @@ goto_native() {
 # End of user input for native installation 
     echo
     echo "**********************"
-    echo " End of user input for EMU setup "
-    echo " Rest of this script is conducted without user input." 
+    #echo " End of user input for EMU setup "
+    #echo " Rest of this script is conducted without user input." 
     #echo 
     #echo " EMU can be run by entering command " 
     #echo "   ${emu_userinterface_dir}/emu "
@@ -506,22 +507,40 @@ goto_native() {
     #echo " reading and plotting the Tools' results."
     sleep 2 
 
-# .......................................
-# Installing EMU natively on host system
-    echo 
-    echo "----------------------"
-    echo "Download and compiling EMU on host system in directory "
-    echo ${emu_dir}
+echo 
+echo "----------------------"
+echo "EMU can be downloaded fresh or you can skip if already downloaded in emu_dir;"
+echo "   1) Use version in emu_dir"
+echo "   2) Download latest from github " 
 
-# Download EMU source code from github
-    cd ${emu_dir}
-    log_file="${setup_dir}/download_emu_source.log"
-   (
-    git clone https://github.com/ECCO-GROUP/ECCO-EIS.git 
-    mv ECCO-EIS/emu .  
-    rm -rf ECCO-EIS  
-#    tar -xvf /net/b230-304-t3/ecco_nfs_1/shared/EMU/singularity8/emu.tar
-    ) > "$log_file" 2>> "$log_file"    
+read emu_install
+if [[ "$emu_install" -eq 2 ]]; then 
+
+	# .......................................
+	# Installing EMU natively on host system
+	    echo 
+	    echo "----------------------"
+	    echo "Download and compiling EMU on host system in directory "
+	    echo ${emu_dir}
+	
+	# Download EMU source code from github
+	    cd ${emu_dir}
+	    log_file="${setup_dir}/download_emu_source.log"
+	   (
+	    git clone https://github.com/ECCO-GROUP/ECCO-EIS.git 
+	    mv ECCO-EIS/emu .  
+	    rm -rf ECCO-EIS  
+	#    tar -xvf /net/b230-304-t3/ecco_nfs_1/shared/EMU/singularity8/emu.tar
+	    ) > "$log_file" 2>> "$log_file"    
+else	
+	# .......................................
+	# Using EMU already on host system
+	    echo 
+	    echo "----------------------"
+	    echo "Using EMU already in directory "
+	    echo ${emu_dir}
+	cd ${emu_dir}
+ done
 
 # Compile EMU
     cd emu
