@@ -3,6 +3,8 @@
 # This version, for singularity, uses setup scripts from Github instead 
 # those in the sif file. 
 
+module load cray-hdf5
+
 umask 022
 
 # Record the start time
