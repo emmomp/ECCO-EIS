@@ -92,7 +92,7 @@ echo "----------------------"
 #URL="https://ecco.jpl.nasa.gov/drive/files/Version4/Release4/other/flux-forced"
 URL="https://ecco.jpl.nasa.gov/drive"
 
-echo "Skipping Earthdata username & pword, assuming you already have it"
+echo "Skipping Earthdata username & pword, assuming you already have downloaded input files"
 
 sleep 2
 
