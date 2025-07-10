@@ -506,15 +506,15 @@ goto_native() {
     #echo " for a brief description, including tools for interactively "
     #echo " reading and plotting the Tools' results."
     sleep 2 
-
-echo 
-echo "----------------------"
-echo "EMU can be downloaded fresh or you can skip if already downloaded in emu_dir;"
-echo "   1) Use version in emu_dir"
-echo "   2) Download latest from github " 
-
-read emu_install
-if [[ "$emu_install" -eq 2 ]]; then 
+    
+    echo 
+    echo "----------------------"
+    echo "EMU can be downloaded fresh or you can skip if already downloaded in emu_dir;"
+    echo "   1) Use version in emu_dir"
+    echo "   2) Download latest from github " 
+    
+    read emu_install
+    if [[ "$emu_install" -eq 2 ]]; then 
 
 	# .......................................
 	# Installing EMU natively on host system
@@ -532,7 +532,7 @@ if [[ "$emu_install" -eq 2 ]]; then
 	    rm -rf ECCO-EIS  
 	#    tar -xvf /net/b230-304-t3/ecco_nfs_1/shared/EMU/singularity8/emu.tar
 	    ) > "$log_file" 2>> "$log_file"    
-elif [[ "$emu_install" -eq 1 ]]; then 
+    elif [[ "$emu_install" -eq 1 ]]; then 
 	# .......................................
 	# Using EMU already on host system
 	    echo 
@@ -540,10 +540,10 @@ elif [[ "$emu_install" -eq 1 ]]; then
 	    echo "Using EMU already in directory "
 	    echo ${emu_dir}
 	cd ${emu_dir}
-else
+    else
 	echo "Must choose 1 or 2, aborting"
 	exit 1
-fi
+    fi
 
 # Compile EMU
     cd emu
