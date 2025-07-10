@@ -561,17 +561,33 @@ fi
 # Compile MITgcm 
 # (This cannot be placed in background because install_emu_access.sh checks
 # what MITgcm executable is available.) 
-    echo 
+
     echo "----------------------"
-    echo "Download and compiling MITgcm and its adjoint in "
-    echo ${emu_dir}/emu/exe/nproc
+    echo "MITgcm can be downloaded and compiled fresh or you can skip if already present;"
+    echo "   1) Use local version"
+    echo "   2) Download and compile fresh " 
+    read mit_install
+    
+    if [[ "$mit_install" -eq 1 ]]; then    
+    	echo "----------------------"
+    	echo "Expecting to find MITgcm and its adjoint in, make sure to link " 
+    	echo ${emu_dir}/emu/exe/nproc/${emu_nproc}
+    elif [[ "$mit_install" -eq 2 ]]; then    
+    
+	echo "----------------------"
+	echo "Download and compiling MITgcm and its adjoint in "
+	echo ${emu_dir}/emu/exe/nproc
+	
+	log_file="${setup_dir}/emu_compile_mdl.log"
+	echo "This can take a while (~30 minutes). "
+	echo "Progress can be monitored in file " ${log_file}
+	echo "  tail ${log_file} "
 
-    log_file="${setup_dir}/emu_compile_mdl.log"
-    echo "This can take a while (~30 minutes). "
-    echo "Progress can be monitored in file " ${log_file}
-    echo "  tail ${log_file} "
-
-    ${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file" 
+    	${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file" else
+    else
+  	echo "Must choose 1 or 2, aborting"
+	exit 1
+    fi
 ${emu_nproc}
 EOF
 
