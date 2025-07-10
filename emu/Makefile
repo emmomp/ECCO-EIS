@@ -1,8 +1,8 @@
 # EMU Makefile
 
-FC = f95
+FC = ftn
 
-FFLAGS = -fconvert=swap
+FFLAGS = 
 
 SRCDIR=.
 
@@ -57,7 +57,7 @@ do_budg: ${SRCDIR}/do_budg.f ${OBJDIR}/emu_sub.o ${OBJDIR}/mysparse.o ${OBJDIR}/
 	$(FC) $(FFLAGS) -o ${OBJDIR}/do_budg.x ${SRCDIR}/do_budg.f ${OBJDIR}/emu_sub.o ${OBJDIR}/mysparse.o ${OBJDIR}/llc_sub.o 
 
 do_budg_flx_combine: ${SRCDIR}/do_budg_flx_combine.f ${OBJDIR}/emu_sub.o ${OBJDIR}/llc_sub.o 
-	$(FC) $(FFLAGS) -o ${OBJDIR}/do_budg_flx_combine.x ${SRCDIR}/do_budg_flx_combine.f ${OBJDIR}/emu_sub.o ${OBJDIR}/llc_sub.o 
+	$(FC) $(FFLAGS) -o ${OBJDIR}/do_budg_flx_combine.x ${SRCDIR}/do_budg_flx_combine.f ${OBJDIR}/emu_sub.o ${OBJDIR}/llc_sub.o 	
 
 # Tracer Tool (trc)
 trc: ${SRCDIR}/trc.f ${OBJDIR}/emu_sub.o ${OBJDIR}/adj_sub.o ${OBJDIR}/llc_sub.o 
