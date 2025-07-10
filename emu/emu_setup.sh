@@ -583,7 +583,7 @@ fi
 	echo "Progress can be monitored in file " ${log_file}
 	echo "  tail ${log_file} "
 
-    	${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file" else
+    	${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file"
     else
   	echo "Must choose 1 or 2, aborting"
 	exit 1
