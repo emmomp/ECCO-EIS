@@ -561,20 +561,37 @@ goto_native() {
 # Compile MITgcm 
 # (This cannot be placed in background because install_emu_access.sh checks
 # what MITgcm executable is available.) 
-    echo 
+#    echo 
+#    echo "----------------------"
+#    echo "Download and compiling MITgcm and its adjoint in "
+#    echo ${emu_dir}/emu/exe/nproc
+    echo
     echo "----------------------"
-    echo "Download and compiling MITgcm and its adjoint in "
-    echo ${emu_dir}/emu/exe/nproc
+    echo "Mitgcm can be downloaded and compiled fresh or current install used"
+    echo " 1) use current install"
+    echo " 2) download and install fresh"
 
-    log_file="${setup_dir}/emu_compile_mdl.log"
-    echo "This can take a while (~30 minutes). "
-    echo "Progress can be monitored in file " ${log_file}
-    echo "  tail ${log_file} "
+    read mitgcm_install
+    if [[ "$mitgcm_install" -eq 2 ]]; then
+       echo "----------------------"
+       echo "Download and compiling MITgcm and its adjoint in "
+       echo ${emu_dir}/emu/exe/nproc
 
-    ${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file" 
+       log_file="${setup_dir}/emu_compile_mdl.log"
+       echo "This can take a while (~30 minutes). "
+       echo "Progress can be monitored in file " ${log_file}
+       echo "  tail ${log_file} "
+
+       ${emu_dir}/emu/native/emu_compile_mdl.sh <<EOF > "$log_file" 2>> "$log_file" 
 ${emu_nproc}
 EOF
-
+    elif [[ "$mitgcm_install" -eq 1 ]]; then
+       # Using MITgcm already in host system
+       echo "Make sure to link current install to ${emu_dir}/emu/exe/nproc"
+    else
+       echo "Must choose 1 or 2, aborting"
+       exit 1
+    fi
 
 # .......................................
 # Install EMU User Interface 
